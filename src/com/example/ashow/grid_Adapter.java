@@ -29,8 +29,8 @@ public class grid_Adapter extends ArrayAdapter<Temp>{
 		TextView tempId = (TextView) view.findViewById(R.id.tempId);
 		TextView _temp=(TextView) view.findViewById(R.id._temp);
 		
-		tempId.setText("温度" + String.valueOf(temp.getTempId()));
-		_temp.setText(temp.getTemp());
+		tempId.setText("温度" + String.valueOf(temp.getTempId()).toString());
+		_temp.setText(String.valueOf(temp.getTemp()).toString());
 		
 		return view;
 	}

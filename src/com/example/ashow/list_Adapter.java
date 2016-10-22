@@ -30,7 +30,7 @@ public class list_Adapter extends ArrayAdapter<list_item>{
 		TextView GainTime = (TextView) convertView.findViewById(R.id.GainTime);
 		
 		Id.setText(String.valueOf(listitem.getId()));
-		Connected.setText(listitem.getConnected());
+		Connected.setText(String.valueOf(listitem.getConnected()));
 		GainTime.setText(listitem.getGainTime());
 		
 		return convertView;

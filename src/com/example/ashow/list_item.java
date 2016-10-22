@@ -2,7 +2,7 @@ package com.example.ashow;
 
 public class list_item {
 	private int Id;
-	private String Connected;
+	private int Connected;
 	private String GainTime;
 	public int getId() {
 		return Id;
@@ -10,10 +10,10 @@ public class list_item {
 	public void setId(int id) {
 		Id = id;
 	}
-	public String getConnected() {
+	public int getConnected() {
 		return Connected;
 	}
-	public void setConnected(String connected) {
+	public void setConnected(int  connected) {
 		Connected = connected;
 	}
 	public String getGainTime() {
@@ -22,7 +22,7 @@ public class list_item {
 	public void setGainTime(String gainTime) {
 		GainTime = gainTime;
 	}
-	public list_item(int id, String connected, String gainTime) {
+	public list_item(int id, int connected, String gainTime) {
 		this.Id = id;
 		this.Connected = connected;
 		this.GainTime = gainTime;

@@ -9,6 +9,30 @@
     tools:context="com.example.ashow.MainActivity" 
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+    <EditText 
+        android:id="@+id/edit1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="请输入ID号"
+        />
+    <Button 
+        android:id="@+id/searchbutton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确定"   
+        />
+    <Button
+        android:id="@+id/baidulocal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="地图"   
+        ></Button>
+    </LinearLayout>
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

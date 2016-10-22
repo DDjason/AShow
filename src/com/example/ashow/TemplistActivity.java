@@ -7,14 +7,18 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.Ashow.dbconnet.MyDatabaseHelper;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.GridView;
 import android.widget.Toast;
 
 public class TemplistActivity  extends Activity{
-
+	
 	private List<Temp> griditem = new ArrayList<Temp>();
 	private GridView grid;
 	private String Str_data;
@@ -25,11 +29,9 @@ public class TemplistActivity  extends Activity{
 		setContentView(R.layout.temp_item);
 		Intent intent = getIntent();
 		int _id = intent.getIntExtra("idname", 1);
-		//Str_data = intent.getStringExtra("Str_data");
-		Toast.makeText(this, _id+"sfsfsfd", Toast.LENGTH_SHORT).show();
 		
 		
-		
+		Toast.makeText(this, "ID="+_id, Toast.LENGTH_SHORT).show();
 		init_griditem(_id);
 		
 		grid = (GridView) findViewById(R.id.gridlist);
@@ -39,62 +41,25 @@ public class TemplistActivity  extends Activity{
 		
 		
 	}
-	private String loadfiles(int _id){
-    	FileInputStream in =null;
-    	BufferedReader reader = null;
-    	String line = null;
-    	try{
-    		in = openFileInput("data.csv");
-    		reader = new BufferedReader(new InputStreamReader(in));
-    		int k = 0;
-    		while((line = reader.readLine()) != null){
-    			if(k == _id){
-    				break;
-    			}
-    			k++;
-    		}
-    	}catch(IOException ex){
-    		ex.printStackTrace();
-    	}finally{
-    		if(reader != null){
-    			try{
-    				reader.close();
-    			}catch(IOException e){
-    				e.printStackTrace();
-    			}
-    		}
-    	}
-    	return line;
-    }
     public void init_griditem(int _id){
-    	Str_data = loadfiles(_id);
-    	int i,j,k;
-    	
-    	i = 0;
-    	j = 3;
-    	while(j > 0){
-    		if(Str_data.charAt(i) == ','){
-    			j--;
-    		}
-    		i++;
-    	}
-    	char ch;
-    	String temp = "";
-    	for( k = 1 ; i < Str_data.length();i++){
-    		ch = Str_data.charAt(i);
-    		if(ch == ','){
-    			Temp fir1 = new Temp(_id, k,temp);
-    	    	griditem.add(fir1);
-    			k++;
-    			temp="";
-    			continue;
-    		}
-    		temp+=ch;
-    		
-    	}
-    	Temp fir1 = new Temp(_id, k,temp);
-    	griditem.add(fir1);
- 
+    	MyDatabaseHelper dbHelper = null;
+        SQLiteDatabase db;
+   	dbHelper = new MyDatabaseHelper(this, "app.db", null, 1);
+       db = dbHelper.getWritableDatabase();
+   	Cursor myCursor = db.rawQuery("select * from TempTable where ID = "
+       +String.valueOf(_id).toString() +";", null);
+   	Temp mytemp = null;
+   	if(myCursor.moveToFirst()){
+   		do{
+   			mytemp = new Temp(_id,
+   					myCursor.getInt(myCursor.getColumnIndex("TempID")),
+   					myCursor.getDouble(myCursor.getColumnIndex("Temp")));
+   			
+   			griditem.add(mytemp);
+   		}while(myCursor.moveToNext());
+   	}
+   	db.close();
+   	dbHelper.close();
     }
 
 }
